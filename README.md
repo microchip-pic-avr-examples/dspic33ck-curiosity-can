@@ -1,6 +1,6 @@
 ![image](images/microchip.jpg) 
 
-## %repoDescritpion%
+## DSPIC33CK CURIOSITY CAN
 
 Board Image if any.
 
