@@ -35,11 +35,11 @@
          }
       },
 	  "peripherals":[
-         "GPIO",
+         "CAN"
       ],
       "keywords":[
-         "GPIO",
-         "UART"
+         "CAN 2.0B",
+         "CAN"
       ]
    }
 }
