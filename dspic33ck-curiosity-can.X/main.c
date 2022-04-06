@@ -53,8 +53,8 @@ int main(void)
     bool msgStatus;
     SYSTEM_Initialize();
     
-    CAN_2_0_Driver.RxBufferOverFlowCallbackRegister(&CAN_RxBufferOverFlowCallback);
-    CAN_2_0_Driver.BusWakeUpActivityCallbackRegister(&CAN_BusWakeUpActivityCallback);
+    CAN_Driver.RxBufferOverFlowCallbackRegister(&CAN_RxBufferOverFlowCallback);
+    CAN_Driver.BusWakeUpActivityCallbackRegister(&CAN_BusWakeUpActivityCallback);
     canPreviousRxState = CAN_ERROR_NONE;
     canPreviousTxState = CAN_ERROR_NONE;
     
@@ -65,9 +65,9 @@ int main(void)
         msgStatus = false;
         
         /*See if there is any data in RX FIFO*/
-        if(CAN_2_0_Driver.ReceivedMessageCountGet() > 0) 
+        if(CAN_Driver.ReceivedMessageCountGet() > 0) 
         {
-            CAN_2_0_Driver.Receive(&canMsg);
+            CAN_Driver.Receive(&canMsg);
             rxOverflowStatus = false;
             LED_GREEN_SetHigh();
             printf("\r\n[*] Received Message Frame:\r\n---------\r\n");
@@ -83,7 +83,7 @@ int main(void)
             /*Transmit back the received message*/
             printf("\r\n[*] Transmitting Message Frame:\r\n---------\r\n");
             PrintCanMsgObjStruct(&canMsg);
-            msgStatus = CAN_2_0_Driver.Transmit(CAN1_TX_TXQ, &canMsg);
+            msgStatus = CAN_Driver.Transmit(CAN1_TX_TXQ, &canMsg);
             if(msgStatus == CAN_TX_MSG_REQUEST_SUCCESS)
             {
                 txWriteFail = false;
@@ -161,7 +161,6 @@ static void PrintCanMsgObjStruct(struct CAN_MSG_OBJ *rxCanMsg)
     printf("[*] DLC: 0x%X\r\n", CAN_DlcToDataBytesGet(rxCanMsg->field.dlc));
     printf("[*] IdType: %s\r\n", rxCanMsg->field.idType == CAN_FRAME_STD ? "CAN_FRAME_STD" : "CAN_FRAME_EXT");
     printf("[*] FrameType: %s\r\n", rxCanMsg->field.frameType == CAN_FRAME_DATA ? "CAN_FRAME_DATA" : "CAN_FRAME_RTR");
-    printf("[*] BRS: %s\r\n", rxCanMsg->field.brs == CAN_NON_BRS_MODE ? "CAN_NON_BRS_MODE" : "CAN_BRS_MODE");
     printf("[*] FormateType: %s\r\n", rxCanMsg->field.formatType == CAN_2_0_FORMAT ? "CAN_2_0_FORMAT" : "CAN_FD_FORMAT");
     printf("------------------------------------------------------------------\r\n");
 }
@@ -172,7 +171,7 @@ static void CheckTxErrors(void)
     /**TX Errors**/
     
     /*If node reached TX Passive Error state*/
-    if(CAN_2_0_Driver.IsTxErrorActive())
+    if(CAN_Driver.IsTxErrorActive())
     {
         if(canPreviousTxState != CAN_ERROR_PASSIVE)
         {
@@ -182,7 +181,7 @@ static void CheckTxErrors(void)
     }
     
     /*If node reached TX Warning state*/
-    else if(CAN_2_0_Driver.IsTxErrorWarning())
+    else if(CAN_Driver.IsTxErrorWarning())
     {
         if(canPreviousTxState != CAN_ERROR_WARNING)
         {
@@ -192,7 +191,7 @@ static void CheckTxErrors(void)
     }
     
     /*If node reached TX Active Error state*/
-    else if(CAN_2_0_Driver.IsTxErrorActive())
+    else if(CAN_Driver.IsTxErrorActive())
     {
         if(canPreviousTxState != CAN_ERROR_ACTIVE)
         {
@@ -223,7 +222,7 @@ static void CheckRxErrors(void)
     /**RX Errors */
     
     /*If node reached RX Passive Error state*/
-    if(CAN_2_0_Driver.IsRxErrorPassive())
+    if(CAN_Driver.IsRxErrorPassive())
     {
         if(canPreviousRxState != CAN_ERROR_PASSIVE)
         {
@@ -233,7 +232,7 @@ static void CheckRxErrors(void)
     }
     
     /*If node reached RX Warning state*/
-    else if(CAN_2_0_Driver.IsRxErrorWarning())
+    else if(CAN_Driver.IsRxErrorWarning())
     {
         if(canPreviousRxState != CAN_ERROR_WARNING)
         {
@@ -243,7 +242,7 @@ static void CheckRxErrors(void)
     }
     
     /*If node reached RX Active Error state*/
-    else if(CAN_2_0_Driver.IsRxErrorActive())
+    else if(CAN_Driver.IsRxErrorActive())
     {
         if(canPreviousRxState != CAN_ERROR_ACTIVE)
         {

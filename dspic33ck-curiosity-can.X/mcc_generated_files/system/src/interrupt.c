@@ -49,14 +49,6 @@ void INTERRUPT_Initialize(void)
     // Priority: 1
     IPC11bits.DMTIP = 1;
     
-    // CND: Change Notification D
-    // Priority: 1
-    IPC18bits.CNDIP = 1;
-    
-    // CNE: Change Notification E
-    // Priority: 1
-    IPC19bits.CNEIP = 1;
-    
 }
 
 void INTERRUPT_Deinitialize(void)
@@ -64,6 +56,4 @@ void INTERRUPT_Deinitialize(void)
     //POR default value of priority
     IPC6bits.C1IP = 4;
     IPC11bits.DMTIP = 4;
-    IPC18bits.CNDIP = 4;
-    IPC19bits.CNEIP = 4;
 }
