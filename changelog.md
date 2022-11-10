@@ -2,7 +2,7 @@
 
 ### Release Highlights
 
-- Core and melody versions upgraded to public version.
+- Core and melody versions upgraded to the latest public version.
 
 # dspic33ck-curiosity-can v1.0.0
 
