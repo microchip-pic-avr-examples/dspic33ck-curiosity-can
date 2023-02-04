@@ -85,7 +85,7 @@
         <platformTool>pkob4hybrid</platformTool>
         <languageToolchain>XC16</languageToolchain>
         <languageToolchainVersion>2.00</languageToolchainVersion>
-        <platform>3</platform>
+        <platform>2</platform>
       </toolsSet>
       <packs>
         <pack name="dsPIC33CK-MP_DFP" vendor="Microchip" version="1.7.208"/>
